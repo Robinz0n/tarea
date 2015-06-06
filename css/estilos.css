@@ -1,0 +1,75 @@
+body{
+    font-family: Arial;
+    text-align: center;  
+    font-size: 16px;
+    background: #222;
+    color: #EEE;
+    
+}
+button
+{
+background: rgba(0,0,255, .8);
+border-radius: 0.5em;
+height: 50px;
+color: white;
+transition: all 0.5s ease;
+margin: 15px 0 0 450px;
+outline: none;
+}
+button:hover
+{
+transform: scale(1.2);
+cursor: pointer;
+background: rgba(100,149,237, .2);
+outline: none;
+}
+h1{
+   font-size: 3em;
+   margin: 0;
+   text-shadow:rgba(255,255,255,0.9) 5px 5px 10px;
+}
+input
+{ 
+    width: 90%;
+    height: 2.4em;
+    border-radius: .3em;
+    margin: 10px 0 0 0;
+    text-align: center;
+    outline:0px;
+    font-size: 1.1em;
+}
+#cadena
+{
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+#informacion
+{
+    height: 100%;
+    width: 40%;
+    text-align: left;
+    background: rgba(165,42,42,0.4);
+    text-decoration: white;
+    font-size: .9em;
+    display: none;
+}
+#problema
+{
+    height: 470px;
+    width: 60%;;
+    background: rgb(128,0,0);
+    margin: 40px auto;
+    border-radius: .6em;
+    box-shadow:rgba(255,255,255,0.9) 0px 0px 14px;
+}
+#solucion
+{
+    width: 90%;
+    height: 300px;
+    background: #EEE;
+    margin: 20px auto;
+    border-radius: .6em;
+    border: 1px solid #222;
+}
+
