@@ -5,6 +5,8 @@ var btnGuardar;
 // creamos una varia Regular
  var expRegular=/^[a-z-\d\s]+$/;
  var nTexto ="";
+ //expresiones regulares
+ var soloNumero=/^\d*$/;
 window.onload=function (){
  //alert("=)");
  txtCadena=document.getElementById("txtCadena");
@@ -22,7 +24,6 @@ function verificar_texto(){
  function pintar_foco(){
      txtCadena.focus();
      txtCadena.style.border="4px solid rgb(255,255,0)";
-     
  }
  //Si el texto es vacío
   if(texto==""){
@@ -33,6 +34,9 @@ function verificar_texto(){
      alert(".:. No debe haber espacio en blanco al comenzar el Texto .:. ");
      txtCadena.value="";
      pintar_foco();
+ }else if(!expRegular.exec(texto)){
+    alert("Solo Minusculas y Enteros"); 
+    verificar_palabras(texto);
  }
  else if (longitud > 1000 ){
      alert(".:. Texto muy GRANDE.:. ");
@@ -44,7 +48,6 @@ function verificar_texto(){
   txtCadena.style.border="4px solid rgb(0,100,0)";
   // verificamos si hay dos espacios en blanco juntos
   espacios_blanco(longitud,texto);
-  
  }
  
 }
@@ -65,5 +68,34 @@ function espacios_blanco(longitud,texto){
         }
     }
 }
-
-
+//funcion que nos permite verificar cada palabra
+function verificar_palabras(texto){
+ //quitamos los espacios en vacios para luego insertarlos en un array
+ var aPalabras=texto.split(" ");
+ var texto_corregido="";
+ var letra_borrada="";
+ //recorremos todas las palabras
+ for(i in aPalabras){
+   //guardamos la palabra a analizar
+   var palabra = aPalabras[i];
+   //verificamos si hay un caracter extraño en la palabra
+   if (!expRegular.exec(palabra)){
+       //Guardamos en un array todas las letras para ser analizadas
+       var aLetras=palabra.split("");
+       //recorremos todas las letras
+       for (j in aLetras){
+        //guardamos la letra 
+        var letra=aLetras[j];
+        //si esa letra es la extraña
+        if (!expRegular.exec(letra)){
+           letra="";
+        }
+        letra_borrada=letra_borrada+letra;
+       }
+     palabra=letra_borrada;  
+   }
+   //tenemos que GUARDAR CADA PALABRA corregia o no
+   texto_corregido=texto_corregido+palabra+" ";
+ }
+  txtCadena.value=texto_corregido;  
+}
