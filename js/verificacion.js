@@ -7,6 +7,7 @@ var btnGuardar;
  var nTexto ="";
  //expresiones regulares
  var soloNumero=/^\d*$/;
+ // funcion PRINCIPAL
 window.onload=function (){
  //alert("=)");
  txtCadena=document.getElementById("txtCadena");
@@ -15,6 +16,7 @@ window.onload=function (){
  txtCadena.onkeyup=verificar_texto;
  
 }
+
 function verificar_texto(){
  //vamos a capturar el valor del campo
  var texto = txtCadena.value;
@@ -39,37 +41,40 @@ function verificar_texto(){
     verificar_palabras(texto);
  }
  else if (longitud > 1000 ){
-     alert(".:. Texto muy GRANDE.:. ");
+     alert(".:. Texto muy GRANDE .:. ");
      nTexto = texto.substring(0,longitud-1);
      txtCadena.value=nTexto;
      pintar_foco();
  }
  else{
   txtCadena.style.border="4px solid rgb(0,100,0)";
-  // verificamos si hay dos espacios en blanco juntos
-  espacios_blanco(longitud,texto);
+  longitud_numero(texto);
+  espacios_blanco(longitud,texto)
  }
  
 }
 //funcion que nos permite saber si hay dos espacios juntos
 function espacios_blanco(longitud,texto){
+    var vacio=" ";
     for (var i = 0 ; i < longitud; i++){
-        var vacio=" ";
-        if (texto.charAt(i) == vacio){
-            if (texto.charAt(i+1) == vacio){
+        if (texto.charAt(i) == vacio && texto.charAt(i+1) == vacio){
                 alert(".:. No debe haber dos espacios vacíos juntos .:.");
-                txtCadena.focus();
                 txtCadena.style.border="4px solid rgb(255,255,0)";
                 //variable donde vamos a guardar el nuevo texto xk 
                 // se va eliminar el ultimo caracter vacío.
-                nTexto = texto.substring(0,i+1);
+                nTexto =texto.substring(0,i+1);
                 txtCadena.value=nTexto;
-            }
         }
     }
 }
 //funcion que nos permite verificar cada palabra
 function verificar_palabras(texto){
+ var longitud=texto.length;
+ //vamos a eliminar el ultimo caracter y es vacío
+ var ultimo_caracter=texto.charAt(longitud-1);
+ if (ultimo_caracter== " "){
+    texto=texto.substring(0,longitud-1);
+ }
  //quitamos los espacios en vacios para luego insertarlos en un array
  var aPalabras=texto.split(" ");
  var texto_corregido="";
@@ -95,7 +100,40 @@ function verificar_palabras(texto){
      palabra=letra_borrada;  
    }
    //tenemos que GUARDAR CADA PALABRA corregia o no
-   texto_corregido=texto_corregido+palabra+" ";
+   texto_corregido=texto_corregido+" "+palabra;
  }
-  txtCadena.value=texto_corregido;  
+ 
+  txtCadena.value=texto_corregido.substring(1);
+}
+//verificamos el tamaño de de los numeros enteros
+function longitud_numero(texto){
+ var aPalabras=texto.split(" ");  
+ //expresion regular que solo admite letras
+ var soloLetra=/^[a-z]+$/;
+ //variables necesarias
+ var numero_corregidos="";
+ var letra_uno="";
+ for(i in aPalabras){
+    var palabra=aPalabras[i];
+    if(!soloLetra.exec(palabra)){
+    //primer caracter de la palabra
+    letra_uno=palabra.charAt(0);
+     //longitud de la palabra
+    var lon=palabra.length;
+       if(letra_uno == "-"){
+          if(lon > 7){
+            alert("Numero muy Grande");
+            palabra=palabra.substring(0,lon-1);
+          }
+       }else{
+          if (lon > 6){
+            alert("Numero muy Grande");
+            palabra=palabra.substring(0,lon-1);   
+          }
+       }
+    }
+    numero_corregidos=numero_corregidos+palabra+" ";
+ }
+ 
+ txtCadena.value=numero_corregidos.substring(0,numero_corregidos.length - 1);
 }
